@@ -127,3 +127,47 @@ use deimer
 db.users.find()
   { "_id" : ObjectId("5cb3a76edea9a4451f789d44"), "name" : "Deimer" }
 ```
+
+
+
+** Visualizar los volumenes existentes**
+
+```bash
+docker volume ls
+```
+
+**Limpiar los volumes no utilizados por ningun contenedor**
+
+```bash
+docker volume prune
+```
+
+**Crear un volumen**
+
+```bash
+docker volume create datodb
+```
+
+**Montar el volumen**
+
+```bash
+docker run -d --name mongoIII --mount src=datodb,dst=/data/db mongo
+docker exec -it mongoIII bash
+mongo
+use deimer
+db.users.insert({"name": "Deimer"})
+    WriteResult({ "nInserted" : 1 })
+db.users.find()
+  { "_id" : ObjectId("5cb3a76edea9a4451f789d44"), "name" : "Deimer" }
+
+docker rm -f mongoIII 
+
+docker run -d --name mongoIV --mount src=datodb,dst=/data/db mongo
+docker exec -it mongoIV bash
+mongo
+db.users.find()
+use deimer
+db.users.find()
+	{ "_id" : ObjectId("5cb50e83b510b6a7303ade1a"), "name" : "Deimer" }
+
+```
