@@ -171,3 +171,15 @@ db.users.find()
 	{ "_id" : ObjectId("5cb50e83b510b6a7303ade1a"), "name" : "Deimer" }
 
 ```
+
+
+**Crear volumen con tamaño especifico en Docker**
+
+```bash
+docker volume create --driver local \
+    --opt type=tmpfs \
+    --opt device=tmpfs \
+    --opt o=size=100m,uid=1000 \
+    nombredelvolumen
+```
+
